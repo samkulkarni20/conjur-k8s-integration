@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: conjur-client
+  name: conjur-client
+  namespace: conjur
+spec:
+  containers:
+  - command:
+    - sleep
+    - "4800"
+    image: cyberark/conjur-cli:5
+    name: conjur-client
+    volumeMounts:
+    - name: policy
+      mountPath: /policy
+    - name: conjur-ca
+      mountPath: /conjur-ca
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+  - name: policy
+    configMap:
+      name: policies
+  - name: conjur-ca
+    configMap:
+      name: conjur-ca

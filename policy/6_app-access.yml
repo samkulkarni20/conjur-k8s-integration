@@ -1,0 +1,16 @@
+- !policy
+  id: demo-app-vars
+  owner: !group secrets_admin
+  annotations:
+    description: This policy contains the creds required by the demo app
+
+  body:
+    - &variables
+      - !variable url
+      - !variable username
+      - !variable password
+
+    - !permit
+      role: !layer /demo-apps
+      privileges: [ read, execute ]
+      resources: *variables

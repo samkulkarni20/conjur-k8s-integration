@@ -1,0 +1,15 @@
+# IMPORTANT: The account used here must match with the account created on conjur installation & the account configured on deployment manifests
+account:
+  name: "default"
+  create: true
+authenticators: "authn-k8s/namespace,authn-k8s/deployment,authn-k8s/service_account,authn-k8s/demo,authn"
+# Generate your own data key with following command
+# docker run --rm cyberark/conjur data-key generate
+dataKey: F8PrtdqMpFd2eov1EmNWnu7muqMocI7BDkqfYY55YUI=
+ssl:
+  altNames:
+  - conjur-oss
+  - conjur-oss-ingress
+  - conjur-oss.conjur.svc.cluster.local
+  - conjur-oss-ingress.conjur.svc.cluster.local
+replicaCount: 1

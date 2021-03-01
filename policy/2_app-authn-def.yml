@@ -1,0 +1,22 @@
+---
+# This policy defines a layer of whitelisted identities permitted to authenticate to the authn-k8s endpoint.
+- !policy
+  id: conjur/authn-k8s/demo/apps
+  owner: !group devops
+  annotations:
+    description: Identities permitted to authenticate 
+  body:
+  - !layer
+    annotations:
+      description: Layer of authenticator identities permitted to call authn svc
+  - &hosts
+    # Host-ID based authentication (application identity in the host itself)
+    - !host
+      id: test/deployment/busybox
+      annotations:
+        kubernetes/authentication-container-name: authenticator
+        kubernetes: "true"
+
+  - !grant
+    role: !layer
+    members: *hosts
